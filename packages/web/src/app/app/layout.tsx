@@ -3,6 +3,8 @@ import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/layout/sidebar";
 import { NavUser } from "@/components/layout/nav-user";
 
+export const dynamic = "force-dynamic";
+
 export default async function AppLayout({
   children,
 }: {
