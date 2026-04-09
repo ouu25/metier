@@ -1,0 +1,26 @@
+{
+  "name": "@metier/core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "js-yaml": "^4",
+    "mammoth": "^1.8",
+    "pdf-parse": "^1.1",
+    "playwright": "^1.49"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4",
+    "@types/node": "^25.5.2",
+    "@types/pdf-parse": "^1.1.5",
+    "typescript": "^5.4",
+    "vitest": "^3"
+  }
+}

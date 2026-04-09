@@ -1,0 +1,22 @@
+{
+  "name": "metier",
+  "private": true,
+  "packageManager": "npm@11.9.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "typecheck": "turbo typecheck"
+  },
+  "devDependencies": {
+    "@types/pdf-parse": "^1.1.5",
+    "eslint": "^9",
+    "prettier": "^3",
+    "turbo": "^2",
+    "typescript": "^5.4",
+    "vitest": "^3"
+  }
+}

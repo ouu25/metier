@@ -1,0 +1,24 @@
+{
+  "name": "@metier/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "metier": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@metier/core": "*",
+    "commander": "^13",
+    "chalk": "^5",
+    "dotenv": "^16"
+  },
+  "devDependencies": {
+    "vitest": "^3",
+    "typescript": "^5.4"
+  }
+}

@@ -1,0 +1,95 @@
+name: Finance & Compliance
+aliases:
+  - audit
+  - compliance
+  - financial
+  - risk
+  - internal control
+  - treasury
+  - FP&A
+  - accounting
+  - "合规"
+  - "财务"
+  - "审计"
+  - "Finanz"
+  - "comptabilité"
+  - "監査"
+keywords:
+  hard_skills:
+    - SOX compliance
+    - IFRS
+    - GAAP
+    - internal audit
+    - risk assessment
+    - financial modeling
+    - FP&A
+    - DCF analysis
+    - budget variance
+    - regulatory reporting
+    - financial analysis
+    - forecasting
+    - reconciliation
+    - tax compliance
+    - anti-money laundering
+  soft_skills:
+    - stakeholder management
+    - cross-functional collaboration
+    - attention to detail
+    - analytical thinking
+    - regulatory communication
+  certifications:
+    - CPA
+    - ACCA
+    - CIA
+    - CISA
+    - FRM
+    - CFA
+    - CMA
+  tools:
+    - SAP
+    - Oracle
+    - Bloomberg
+    - Excel (advanced)
+    - Power BI
+    - Hyperion
+    - BlackLine
+    - Workiva
+scoring_dimensions:
+  - name: Regulatory Knowledge
+    weight: 0.20
+  - name: Industry Experience
+    weight: 0.15
+  - name: Technical Skills Match
+    weight: 0.20
+  - name: Certification Alignment
+    weight: 0.15
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Location Match
+    weight: 0.05
+  - name: Soft Skills
+    weight: 0.05
+  - name: Company Culture Fit
+    weight: 0.05
+  - name: Growth Potential
+    weight: 0.05
+job_portals:
+  - name: eFinancialCareers
+    url: https://www.efinancialcareers.com
+  - name: Robert Half
+    url: https://www.roberthalf.com
+interview_questions:
+  technical:
+    - "Walk me through a DCF model"
+    - "How do you assess internal control weaknesses?"
+    - "Explain the difference between IFRS and GAAP"
+    - "What is SOX 404 and how do you ensure compliance?"
+    - "How do you perform a risk assessment?"
+  behavioral:
+    - "Describe a time you identified a compliance risk"
+    - "How do you handle tight audit deadlines?"
+    - "Tell me about a time you had to communicate a complex financial issue to non-finance stakeholders"
+  case:
+    - "Company X has declining margins. Walk me through your analysis"
+    - "You discover a material misstatement during an audit. What steps do you take?"
+resume_style: conservative

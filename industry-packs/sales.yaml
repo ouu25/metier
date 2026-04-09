@@ -1,0 +1,83 @@
+name: Sales & Business Development
+aliases:
+  - sales
+  - business development
+  - account management
+  - revenue
+  - BD
+  - "销售"
+  - "営業"
+  - "Vertrieb"
+  - "ventes"
+keywords:
+  hard_skills:
+    - quota attainment
+    - pipeline management
+    - lead generation
+    - account planning
+    - territory management
+    - sales forecasting
+    - contract negotiation
+    - cold calling
+    - consultative selling
+    - solution selling
+    - channel sales
+    - enterprise sales
+    - SaaS sales
+    - revenue growth
+  soft_skills:
+    - relationship building
+    - negotiation
+    - persuasion
+    - resilience
+    - time management
+    - active listening
+  certifications:
+    - Salesforce Certified
+    - HubSpot Sales Certification
+    - MEDDIC
+    - Sandler Training
+  tools:
+    - Salesforce
+    - HubSpot
+    - Outreach
+    - Gong
+    - LinkedIn Sales Navigator
+    - ZoomInfo
+    - Clari
+scoring_dimensions:
+  - name: Revenue Track Record
+    weight: 0.25
+  - name: Industry Experience
+    weight: 0.15
+  - name: Sales Methodology
+    weight: 0.15
+  - name: Tool Proficiency
+    weight: 0.10
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Location Match
+    weight: 0.05
+  - name: Soft Skills
+    weight: 0.10
+  - name: Company Culture Fit
+    weight: 0.05
+  - name: Growth Potential
+    weight: 0.05
+job_portals:
+  - name: RepVue
+    url: https://www.repvue.com
+  - name: Bravado
+    url: https://www.bravado.co
+interview_questions:
+  technical:
+    - "Walk me through your sales process from prospecting to close"
+    - "How do you qualify a lead using MEDDIC or BANT?"
+    - "Describe how you manage a complex enterprise deal cycle"
+  behavioral:
+    - "Tell me about a deal you lost and what you learned"
+    - "How do you handle a prospect who goes silent?"
+    - "Describe a time you exceeded your quota significantly"
+  case:
+    - "You inherit a territory with zero pipeline. What do you do in the first 90 days?"
+resume_style: executive

@@ -1,0 +1,43 @@
+{
+  "name": "Emily Lawson",
+  "contact": {
+    "email": "emily.lawson@example.com",
+    "phone": "+1 555-0142",
+    "linkedin": "linkedin.com/in/emilylawson"
+  },
+  "summary": "Results-driven marketing manager with 5 years of experience in B2B SaaS, specializing in demand generation, content strategy, and marketing automation.",
+  "experience": [
+    {
+      "company": "Brightwave Software",
+      "title": "Senior Marketing Manager",
+      "dates": "2022-2025",
+      "bullets": [
+        "Led demand generation strategy that increased MQLs by 65%",
+        "Managed $1.2M annual marketing budget across paid and organic channels",
+        "Built and mentored a team of 4 marketing specialists"
+      ]
+    },
+    {
+      "company": "Cloudline Analytics",
+      "title": "Marketing Coordinator",
+      "dates": "2020-2022",
+      "bullets": [
+        "Executed multi-channel campaigns driving 40% increase in website traffic",
+        "Managed HubSpot CRM and marketing automation workflows",
+        "Coordinated quarterly webinar series with 500+ average attendees"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of Michigan",
+      "degree": "BA Marketing",
+      "dates": "2016-2020"
+    }
+  ],
+  "skills": [
+    "demand generation", "content strategy", "SEO", "marketing automation",
+    "data analysis", "brand management", "HubSpot", "Google Analytics"
+  ],
+  "certifications": ["HubSpot Inbound Marketing", "Google Analytics Certified"]
+}

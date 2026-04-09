@@ -1,0 +1,87 @@
+name: Software Engineering
+aliases:
+  - software engineer
+  - developer
+  - DevOps
+  - backend
+  - frontend
+  - full stack
+  - SRE
+  - "工程师"
+  - "エンジニア"
+  - "Entwickler"
+  - "développeur"
+keywords:
+  hard_skills:
+    - system design
+    - microservices
+    - REST APIs
+    - GraphQL
+    - CI/CD
+    - containerization
+    - cloud architecture
+    - database design
+    - distributed systems
+    - agile development
+    - code review
+    - performance optimization
+    - security best practices
+    - testing strategies
+  soft_skills:
+    - technical communication
+    - cross-functional collaboration
+    - mentoring
+    - problem solving
+    - ownership
+  certifications:
+    - AWS Certified
+    - Google Cloud Certified
+    - Azure Certified
+    - Kubernetes CKA
+    - Terraform Associate
+  tools:
+    - Git
+    - Docker
+    - Kubernetes
+    - AWS
+    - PostgreSQL
+    - Redis
+    - Terraform
+    - GitHub Actions
+    - Datadog
+scoring_dimensions:
+  - name: Technical Depth
+    weight: 0.25
+  - name: System Design
+    weight: 0.15
+  - name: Tool Proficiency
+    weight: 0.15
+  - name: Industry Experience
+    weight: 0.10
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Location Match
+    weight: 0.05
+  - name: Soft Skills
+    weight: 0.10
+  - name: Company Culture Fit
+    weight: 0.05
+  - name: Growth Potential
+    weight: 0.05
+job_portals:
+  - name: StackOverflow Jobs
+    url: https://stackoverflow.com/jobs
+  - name: HackerNews Who's Hiring
+    url: https://news.ycombinator.com
+interview_questions:
+  technical:
+    - "Design a URL shortener service"
+    - "How would you debug a slow API endpoint?"
+    - "Explain the CAP theorem and its practical implications"
+  behavioral:
+    - "Tell me about a time you had to make a technical trade-off"
+    - "How do you handle disagreements in code review?"
+    - "Describe a production incident you resolved"
+  case:
+    - "Our API latency has increased 5x in the last week. Walk me through your investigation"
+resume_style: modern

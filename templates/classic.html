@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    font-family: "Georgia", "Times New Roman", serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+    font-size: 11pt;
+    line-height: 1.4;
+    color: #333;
+  }
+  h1 { font-size: 22pt; margin-bottom: 4px; color: #1a1a1a; }
+  .contact { font-size: 10pt; color: #555; margin-bottom: 16px; }
+  h2 {
+    font-size: 13pt;
+    text-transform: uppercase;
+    border-bottom: 1px solid #999;
+    padding-bottom: 4px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    color: #1a1a1a;
+  }
+  .summary { font-style: italic; margin-bottom: 12px; }
+  .job { margin-bottom: 14px; }
+  .job-header { display: flex; justify-content: space-between; }
+  .job-title { font-weight: bold; }
+  .job-dates { color: #666; font-style: italic; }
+  ul { margin: 4px 0; padding-left: 20px; }
+  li { margin-bottom: 3px; }
+  .skills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    background: #f0f0f0;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10pt;
+  }
+  .edu { margin-bottom: 8px; }
+  @page { margin: 0.6in; }
+</style>
+</head>
+<body>
+  <h1>{{name}}</h1>
+  <div class="contact">{{contact_line}}</div>
+
+  {{#if summary}}
+  <h2>Summary</h2>
+  <div class="summary">{{summary}}</div>
+  {{/if}}
+
+  <h2>Experience</h2>
+  {{#each experience}}
+  <div class="job">
+    <div class="job-header">
+      <span class="job-title">{{this.title}} — {{this.company}}</span>
+      <span class="job-dates">{{this.dates}}</span>
+    </div>
+    <ul>
+      {{#each this.bullets}}
+      <li>{{this}}</li>
+      {{/each}}
+    </ul>
+  </div>
+  {{/each}}
+
+  <h2>Education</h2>
+  {{#each education}}
+  <div class="edu">
+    <strong>{{this.degree}}</strong> — {{this.institution}} ({{this.dates}})
+  </div>
+  {{/each}}
+
+  <h2>Skills</h2>
+  <div class="skills">
+    {{#each skills}}<span class="skill-tag">{{this}}</span>{{/each}}
+  </div>
+
+  {{#if certifications.length}}
+  <h2>Certifications</h2>
+  <div class="skills">
+    {{#each certifications}}<span class="skill-tag">{{this}}</span>{{/each}}
+  </div>
+  {{/if}}
+</body>
+</html>
