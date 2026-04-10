@@ -21,11 +21,17 @@ export default async function AppLayout({
 
   return (
     <div className="flex h-screen">
-      <div className="flex flex-col">
+      <div className="hidden md:flex md:flex-col">
         <Sidebar />
         <NavUser email={user.email ?? ""} />
       </div>
-      <main className="flex-1 overflow-y-auto bg-gray-50 p-8">{children}</main>
+      {/* Mobile: sidebar renders its own fixed overlay */}
+      <div className="md:hidden">
+        <Sidebar />
+      </div>
+      <main className="flex-1 overflow-y-auto bg-gray-50 p-4 pt-14 md:p-8 md:pt-8">
+        {children}
+      </main>
     </div>
   );
 }

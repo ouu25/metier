@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileText, BarChart3, BriefcaseBusiness } from "lucide-react";
+import { FileText, BarChart3, BriefcaseBusiness, MessageSquare } from "lucide-react";
 
 const features = [
   {
@@ -15,8 +15,26 @@ const features = [
   {
     icon: BriefcaseBusiness,
     title: "Industry Packs",
-    description: "Pre-built intelligence for Finance, Sales, Engineering, and more.",
+    description: "Pre-built intelligence for 10 industries with keywords and scoring.",
   },
+  {
+    icon: MessageSquare,
+    title: "Interview Prep",
+    description: "AI mock interviews with scoring, feedback, and follow-up questions.",
+  },
+];
+
+const packs = [
+  { name: "Finance", desc: "Audit, compliance, risk, FP&A" },
+  { name: "Sales", desc: "BD, account mgmt, revenue" },
+  { name: "Engineering", desc: "Software, DevOps, design" },
+  { name: "Marketing", desc: "Growth, SEO, campaigns" },
+  { name: "HR", desc: "Talent, L&D, compensation" },
+  { name: "Design", desc: "UX/UI, brand, creative" },
+  { name: "Legal", desc: "Contract, regulatory, IP" },
+  { name: "Healthcare", desc: "Clinical, pharma, health IT" },
+  { name: "Operations", desc: "Supply chain, logistics, lean" },
+  { name: "Data", desc: "Analytics, ML, data engineering" },
 ];
 
 export function Hero() {
@@ -34,10 +52,10 @@ export function Hero() {
           Tailor resumes, score job matches, and prepare for interviews
           across every industry.
         </p>
-        <div className="mt-8 flex gap-4">
+        <div className="mt-8 flex flex-col sm:flex-row gap-4">
           <Link
             href="/auth/signup"
-            className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700 transition"
+            className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-medium text-white hover:bg-blue-700 transition text-center"
           >
             Get Started Free
           </Link>
@@ -45,7 +63,7 @@ export function Hero() {
             href="https://github.com/ouu25/metier"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+            className="rounded-lg border border-gray-300 px-6 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50 transition text-center"
           >
             View on GitHub
           </a>
@@ -53,7 +71,7 @@ export function Hero() {
       </section>
 
       <section className="mx-auto max-w-4xl px-6 py-16">
-        <div className="grid gap-8 sm:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {features.map((f) => {
             const Icon = f.icon;
             return (
@@ -69,30 +87,22 @@ export function Hero() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-2xl px-6 py-16 text-center">
-        <h2 className="text-2xl font-bold text-gray-900">Industry Packs</h2>
+      <section className="mx-auto max-w-3xl px-6 py-16 text-center">
+        <h2 className="text-2xl font-bold text-gray-900">10 Industry Packs</h2>
         <p className="mt-2 text-gray-500">
           Pre-built keyword libraries, scoring dimensions, and interview questions.
         </p>
-        <div className="mt-8 grid gap-4 sm:grid-cols-3">
-          {[
-            { name: "Finance", desc: "Audit, compliance, risk, FP&A", style: "Classic" },
-            { name: "Sales", desc: "BD, account mgmt, revenue", style: "Executive" },
-            { name: "Engineering", desc: "Software, DevOps, design", style: "Modern" },
-          ].map((pack) => (
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          {packs.map((pack) => (
             <div
               key={pack.name}
-              className="rounded-xl border border-gray-200 bg-white p-5 text-left"
+              className="rounded-lg border border-gray-200 bg-white px-4 py-3 text-left"
             >
-              <h3 className="font-semibold text-gray-900">{pack.name}</h3>
-              <p className="mt-1 text-sm text-gray-500">{pack.desc}</p>
-              <p className="mt-2 text-xs text-gray-400">Template: {pack.style}</p>
+              <h3 className="text-sm font-semibold text-gray-900">{pack.name}</h3>
+              <p className="mt-0.5 text-xs text-gray-500">{pack.desc}</p>
             </div>
           ))}
         </div>
-        <p className="mt-6 text-sm text-gray-400">
-          More coming: Marketing, HR, Design, Legal, Healthcare, Operations, Data.
-        </p>
       </section>
     </>
   );
