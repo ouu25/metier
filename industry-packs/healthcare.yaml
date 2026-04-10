@@ -1,0 +1,88 @@
+name: Healthcare & Life Sciences
+aliases:
+  - healthcare
+  - medical
+  - clinical
+  - pharmaceutical
+  - biotech
+  - hospital
+  - nursing
+  - "医疗"
+  - "医療"
+  - "Gesundheitswesen"
+  - "santé"
+keywords:
+  hard_skills:
+    - clinical research
+    - patient care
+    - regulatory affairs
+    - GCP/GMP/GLP
+    - clinical trial management
+    - medical device
+    - pharmacovigilance
+    - health informatics
+    - HIPAA compliance
+    - FDA submissions
+    - electronic health records
+    - quality assurance
+    - evidence-based practice
+    - population health
+  soft_skills:
+    - empathy
+    - teamwork
+    - attention to detail
+    - communication
+    - critical thinking
+    - stress management
+  certifications:
+    - RN/BSN
+    - MD
+    - PharmD
+    - PMP (Healthcare)
+    - Lean Six Sigma (Healthcare)
+    - CCRP
+    - RAC
+  tools:
+    - Epic
+    - Cerner
+    - Medidata
+    - Veeva
+    - REDCap
+    - CTMS
+    - SAP (Pharma)
+    - Tableau (Healthcare)
+scoring_dimensions:
+  - name: Regulatory Knowledge
+    weight: 0.25
+  - name: Technical Skills Match
+    weight: 0.20
+  - name: Certification Alignment
+    weight: 0.15
+  - name: Industry Experience
+    weight: 0.15
+  - name: Tool Proficiency
+    weight: 0.10
+  - name: Seniority Fit
+    weight: 0.05
+  - name: Soft Skills
+    weight: 0.05
+  - name: Company Culture Fit
+    weight: 0.05
+job_portals:
+  - name: Health eCareers
+    url: https://www.healthecareers.com
+  - name: BioSpace
+    url: https://www.biospace.com
+interview_questions:
+  technical:
+    - "Walk me through the phases of a clinical trial"
+    - "How do you ensure FDA regulatory compliance in your work?"
+    - "Explain your approach to pharmacovigilance and adverse event reporting"
+    - "How do you implement quality improvement in a clinical setting?"
+  behavioral:
+    - "Tell me about a time you had to handle a patient safety concern"
+    - "How do you stay current with evolving healthcare regulations?"
+    - "Describe a situation where you improved a clinical process"
+  case:
+    - "A clinical trial site has enrollment 40% below target. What's your action plan?"
+resume_style: conservative

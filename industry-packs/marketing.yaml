@@ -1,0 +1,90 @@
+name: Marketing & Growth
+aliases:
+  - marketing
+  - digital marketing
+  - brand
+  - content marketing
+  - growth
+  - demand generation
+  - "市场营销"
+  - "マーケティング"
+  - "Marketing"
+  - "marketing digital"
+keywords:
+  hard_skills:
+    - SEO/SEM
+    - content strategy
+    - demand generation
+    - marketing automation
+    - A/B testing
+    - conversion rate optimization
+    - paid media
+    - social media marketing
+    - email marketing
+    - brand positioning
+    - go-to-market strategy
+    - product marketing
+    - campaign management
+    - market research
+    - marketing analytics
+  soft_skills:
+    - creative thinking
+    - storytelling
+    - cross-functional collaboration
+    - data-driven decision making
+    - stakeholder management
+    - project management
+  certifications:
+    - Google Ads Certified
+    - Google Analytics Certified
+    - HubSpot Inbound Marketing
+    - Meta Blueprint
+    - Hootsuite Social Marketing
+  tools:
+    - Google Analytics
+    - HubSpot
+    - Marketo
+    - Salesforce Marketing Cloud
+    - Semrush
+    - Ahrefs
+    - Figma
+    - Canva
+    - Mailchimp
+    - Google Ads
+scoring_dimensions:
+  - name: Technical Skills Match
+    weight: 0.20
+  - name: Industry Experience
+    weight: 0.15
+  - name: Revenue Track Record
+    weight: 0.15
+  - name: Tool Proficiency
+    weight: 0.15
+  - name: Certification Alignment
+    weight: 0.10
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Soft Skills
+    weight: 0.05
+  - name: Company Culture Fit
+    weight: 0.05
+  - name: Growth Potential
+    weight: 0.05
+job_portals:
+  - name: MarketingHire
+    url: https://www.marketinghire.com
+  - name: Built In
+    url: https://builtin.com
+interview_questions:
+  technical:
+    - "How would you build a demand generation funnel from scratch?"
+    - "Walk me through how you measure marketing ROI"
+    - "How do you approach SEO for a new product launch?"
+    - "Explain your process for A/B testing a landing page"
+  behavioral:
+    - "Tell me about a campaign that failed and what you learned"
+    - "How do you prioritize when you have multiple campaigns running?"
+    - "Describe a time you had to convince leadership to invest in a new channel"
+  case:
+    - "Our cost per lead has doubled in 6 months. How would you diagnose and fix this?"
+resume_style: modern

@@ -1,0 +1,86 @@
+name: Operations & Supply Chain
+aliases:
+  - operations
+  - supply chain
+  - procurement
+  - logistics
+  - project management
+  - ops
+  - "运营"
+  - "オペレーション"
+  - "Betrieb"
+  - "opérations"
+keywords:
+  hard_skills:
+    - supply chain management
+    - procurement
+    - inventory management
+    - logistics optimization
+    - vendor management
+    - process improvement
+    - lean manufacturing
+    - Six Sigma
+    - demand planning
+    - warehouse management
+    - capacity planning
+    - cost reduction
+    - quality management
+    - ERP implementation
+  soft_skills:
+    - problem solving
+    - cross-functional collaboration
+    - negotiation
+    - analytical thinking
+    - project management
+    - decision making
+  certifications:
+    - PMP
+    - CSCP (APICS)
+    - CPIM
+    - Lean Six Sigma Green Belt
+    - Lean Six Sigma Black Belt
+    - CPSM
+  tools:
+    - SAP
+    - Oracle SCM
+    - Jira
+    - Microsoft Project
+    - Tableau
+    - Power BI
+    - Asana
+    - NetSuite
+scoring_dimensions:
+  - name: Technical Skills Match
+    weight: 0.25
+  - name: Industry Experience
+    weight: 0.15
+  - name: Certification Alignment
+    weight: 0.15
+  - name: Tool Proficiency
+    weight: 0.15
+  - name: Revenue Track Record
+    weight: 0.10
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Soft Skills
+    weight: 0.05
+  - name: Company Culture Fit
+    weight: 0.05
+job_portals:
+  - name: Supply Chain Online
+    url: https://www.supplychainonline.com
+  - name: APICS Career Center
+    url: https://careers.ascm.org
+interview_questions:
+  technical:
+    - "How would you reduce lead time in a global supply chain?"
+    - "Walk me through a Lean Six Sigma improvement project you led"
+    - "How do you approach vendor selection and evaluation?"
+    - "Explain your process for demand forecasting"
+  behavioral:
+    - "Tell me about a time you resolved a critical supply chain disruption"
+    - "How do you handle competing priorities across multiple projects?"
+    - "Describe a cost reduction initiative you implemented"
+  case:
+    - "Our fulfillment costs have increased 30% year-over-year. How would you investigate and address this?"
+resume_style: conservative

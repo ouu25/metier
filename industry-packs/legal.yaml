@@ -1,0 +1,85 @@
+name: Legal & Compliance
+aliases:
+  - legal
+  - lawyer
+  - counsel
+  - attorney
+  - paralegal
+  - corporate law
+  - IP
+  - "法律"
+  - "法務"
+  - "Recht"
+  - "juridique"
+keywords:
+  hard_skills:
+    - contract drafting
+    - contract review
+    - regulatory compliance
+    - litigation management
+    - due diligence
+    - corporate governance
+    - intellectual property
+    - employment law
+    - data privacy (GDPR/CCPA)
+    - mergers & acquisitions
+    - risk management
+    - dispute resolution
+    - legal research
+    - policy development
+  soft_skills:
+    - analytical reasoning
+    - attention to detail
+    - negotiation
+    - written communication
+    - stakeholder management
+    - ethical judgment
+  certifications:
+    - Bar Admission
+    - CIPP (Privacy)
+    - CISA
+    - Certified Compliance & Ethics Professional
+    - LLM
+  tools:
+    - Westlaw
+    - LexisNexis
+    - DocuSign
+    - ContractPodAi
+    - Relativity
+    - NetDocuments
+    - Clio
+scoring_dimensions:
+  - name: Regulatory Knowledge
+    weight: 0.25
+  - name: Technical Skills Match
+    weight: 0.20
+  - name: Industry Experience
+    weight: 0.15
+  - name: Certification Alignment
+    weight: 0.15
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Soft Skills
+    weight: 0.05
+  - name: Tool Proficiency
+    weight: 0.05
+  - name: Company Culture Fit
+    weight: 0.05
+job_portals:
+  - name: LawJobs
+    url: https://www.lawjobs.com
+  - name: Robert Half Legal
+    url: https://www.roberthalf.com/legal
+interview_questions:
+  technical:
+    - "How do you approach reviewing a commercial contract for risk?"
+    - "Walk me through a due diligence process for an acquisition"
+    - "How do you ensure GDPR compliance across multiple jurisdictions?"
+    - "Explain how you would handle a potential IP infringement"
+  behavioral:
+    - "Tell me about a time you had to deliver unwelcome legal advice to leadership"
+    - "How do you prioritize when managing multiple active matters?"
+    - "Describe a situation where you found a creative legal solution to a business problem"
+  case:
+    - "A key vendor breaches their SLA. Walk me through your response strategy"
+resume_style: conservative

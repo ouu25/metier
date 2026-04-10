@@ -1,0 +1,86 @@
+name: Design & UX
+aliases:
+  - design
+  - UX
+  - UI
+  - product design
+  - graphic design
+  - visual design
+  - UX research
+  - "设计"
+  - "デザイン"
+  - "Design"
+  - "conception"
+keywords:
+  hard_skills:
+    - user research
+    - wireframing
+    - prototyping
+    - interaction design
+    - visual design
+    - design systems
+    - usability testing
+    - information architecture
+    - responsive design
+    - accessibility (WCAG)
+    - typography
+    - motion design
+    - design thinking
+    - user journey mapping
+  soft_skills:
+    - empathy
+    - storytelling
+    - cross-functional collaboration
+    - iterative thinking
+    - presentation skills
+    - feedback incorporation
+  certifications:
+    - Google UX Design Certificate
+    - Nielsen Norman UX Certification
+    - Interaction Design Foundation
+  tools:
+    - Figma
+    - Sketch
+    - Adobe Creative Suite
+    - InVision
+    - Framer
+    - Miro
+    - Maze
+    - Hotjar
+    - Principle
+    - After Effects
+scoring_dimensions:
+  - name: Technical Depth
+    weight: 0.25
+  - name: Tool Proficiency
+    weight: 0.20
+  - name: Industry Experience
+    weight: 0.15
+  - name: Certification Alignment
+    weight: 0.10
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Soft Skills
+    weight: 0.10
+  - name: Company Culture Fit
+    weight: 0.05
+  - name: Growth Potential
+    weight: 0.05
+job_portals:
+  - name: Dribbble Jobs
+    url: https://dribbble.com/jobs
+  - name: Behance Job List
+    url: https://www.behance.net/joblist
+interview_questions:
+  technical:
+    - "Walk me through your design process from research to handoff"
+    - "How do you approach building a design system?"
+    - "How do you measure the success of a design change?"
+    - "Explain your approach to accessibility in design"
+  behavioral:
+    - "Tell me about a time you had to push back on a stakeholder's design request"
+    - "How do you handle conflicting feedback from multiple stakeholders?"
+    - "Describe a project where user research changed the direction significantly"
+  case:
+    - "Our checkout flow has a 70% drop-off rate. How would you approach redesigning it?"
+resume_style: modern

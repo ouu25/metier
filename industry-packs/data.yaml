@@ -1,0 +1,91 @@
+name: Data & Analytics
+aliases:
+  - data
+  - data science
+  - data analytics
+  - business intelligence
+  - BI
+  - data engineering
+  - machine learning
+  - "数据"
+  - "データ"
+  - "Daten"
+  - "données"
+keywords:
+  hard_skills:
+    - data analysis
+    - statistical modeling
+    - machine learning
+    - data pipeline
+    - ETL
+    - data visualization
+    - A/B testing
+    - predictive modeling
+    - natural language processing
+    - deep learning
+    - feature engineering
+    - data governance
+    - data warehousing
+    - experiment design
+  soft_skills:
+    - analytical thinking
+    - storytelling with data
+    - cross-functional collaboration
+    - problem solving
+    - business acumen
+    - communication
+  certifications:
+    - Google Data Analytics Certificate
+    - AWS Data Analytics Specialty
+    - Databricks Certified
+    - Tableau Desktop Specialist
+    - Microsoft Azure Data Scientist
+    - dbt Analytics Engineering
+  tools:
+    - Python
+    - SQL
+    - R
+    - Tableau
+    - Power BI
+    - Snowflake
+    - Databricks
+    - Apache Spark
+    - dbt
+    - Looker
+    - Jupyter
+    - Airflow
+scoring_dimensions:
+  - name: Technical Depth
+    weight: 0.25
+  - name: Tool Proficiency
+    weight: 0.20
+  - name: Industry Experience
+    weight: 0.15
+  - name: Certification Alignment
+    weight: 0.10
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Soft Skills
+    weight: 0.10
+  - name: Company Culture Fit
+    weight: 0.05
+  - name: Growth Potential
+    weight: 0.05
+job_portals:
+  - name: DataJobs
+    url: https://datajobs.com
+  - name: Kaggle Jobs
+    url: https://www.kaggle.com/jobs
+interview_questions:
+  technical:
+    - "Explain the difference between L1 and L2 regularization"
+    - "How would you design a recommendation system?"
+    - "Walk me through your approach to cleaning a messy dataset"
+    - "How do you validate a machine learning model?"
+  behavioral:
+    - "Tell me about a time your analysis changed a business decision"
+    - "How do you communicate complex findings to non-technical stakeholders?"
+    - "Describe a project where you had to work with incomplete data"
+  case:
+    - "Customer churn has increased 20%. How would you approach this analytically?"
+resume_style: modern

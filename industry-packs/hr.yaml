@@ -1,0 +1,88 @@
+name: Human Resources
+aliases:
+  - HR
+  - human resources
+  - talent acquisition
+  - recruiting
+  - people operations
+  - compensation
+  - benefits
+  - "人力资源"
+  - "人事"
+  - "Personalwesen"
+  - "ressources humaines"
+  - "人事部"
+keywords:
+  hard_skills:
+    - talent acquisition
+    - employee relations
+    - performance management
+    - compensation & benefits
+    - HRIS administration
+    - workforce planning
+    - succession planning
+    - organizational development
+    - change management
+    - labor law compliance
+    - onboarding
+    - diversity & inclusion
+    - employee engagement
+    - training & development
+    - payroll administration
+  soft_skills:
+    - empathy
+    - conflict resolution
+    - confidentiality
+    - active listening
+    - negotiation
+    - cultural sensitivity
+  certifications:
+    - SHRM-CP
+    - SHRM-SCP
+    - PHR
+    - SPHR
+    - CIPD
+    - CHRP
+  tools:
+    - Workday
+    - BambooHR
+    - ADP
+    - Greenhouse
+    - Lever
+    - SAP SuccessFactors
+    - LinkedIn Recruiter
+    - Culture Amp
+scoring_dimensions:
+  - name: Technical Skills Match
+    weight: 0.20
+  - name: Industry Experience
+    weight: 0.15
+  - name: Certification Alignment
+    weight: 0.15
+  - name: Regulatory Knowledge
+    weight: 0.15
+  - name: Tool Proficiency
+    weight: 0.10
+  - name: Seniority Fit
+    weight: 0.10
+  - name: Soft Skills
+    weight: 0.10
+  - name: Company Culture Fit
+    weight: 0.05
+job_portals:
+  - name: SHRM Job Board
+    url: https://jobs.shrm.org
+  - name: HR Jobs
+    url: https://www.hrjobs.com
+interview_questions:
+  technical:
+    - "How do you design a compensation structure for a 200-person company?"
+    - "Walk me through your approach to reducing employee turnover"
+    - "How do you ensure compliance with local labor laws across multiple regions?"
+  behavioral:
+    - "Tell me about a difficult employee relations case you handled"
+    - "How do you balance business needs with employee welfare?"
+    - "Describe a time you led a significant organizational change"
+  case:
+    - "Employee engagement scores dropped 15% this quarter. What's your action plan?"
+resume_style: conservative
