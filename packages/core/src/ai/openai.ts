@@ -5,6 +5,8 @@ import type {
   AIMessage,
   RewriteMode,
   SemanticScore,
+  QuestionType,
+  InterviewFeedback,
 } from "../types.js";
 import type { NamedAIProvider } from "./provider.js";
 
@@ -61,6 +63,43 @@ export class OpenAIProvider implements NamedAIProvider {
       },
       { role: "user", content: prompt },
     ]);
+  }
+
+  async conductInterview(
+    question: string,
+    questionType: QuestionType,
+    answer: string,
+    pack: IndustryPack
+  ): Promise<InterviewFeedback> {
+    const response = await this.chat([
+      {
+        role: "system",
+        content: `You are a senior interviewer for a ${pack.name} role. Be professional but supportive. Return valid JSON only.`,
+      },
+      {
+        role: "user",
+        content: buildInterviewPrompt(question, questionType, answer),
+      },
+    ]);
+    return JSON.parse(extractJson(response));
+  }
+
+  async generateFollowUp(
+    question: string,
+    answer: string,
+    pack: IndustryPack
+  ): Promise<string> {
+    const response = await this.chat([
+      {
+        role: "system",
+        content: `You are a senior interviewer for a ${pack.name} role. Generate ONE follow-up question that probes deeper into the candidate's answer. Return just the question text, no JSON, no quotes.`,
+      },
+      {
+        role: "user",
+        content: `Original question: "${question}"\n\nCandidate's answer: "${answer}"\n\nAsk a follow-up question:`,
+      },
+    ]);
+    return response.trim();
   }
 
   private async chat(messages: AIMessage[]): Promise<string> {
@@ -194,4 +233,30 @@ Industry: ${pack.name}
 Resume: ${JSON.stringify(resume, null, 2)}
 Job Description: ${jd.raw_text}
 Provide: match assessment, strengths, gaps, and recommendation (apply / skip / stretch).`;
+}
+
+function buildInterviewPrompt(
+  question: string,
+  questionType: QuestionType,
+  answer: string
+): string {
+  return `Question type: ${questionType}
+Question: "${question}"
+
+Candidate's answer:
+"${answer}"
+
+Evaluate this interview answer and return JSON:
+{
+  "overall_score": <0-100>,
+  "dimensions": [
+    {"name": "Content Depth", "score": <0-100>},
+    {"name": "Structure & Clarity", "score": <0-100>},
+    {"name": "Specificity", "score": <0-100>},
+    {"name": "Technical Accuracy", "score": <0-100>}
+  ],
+  "strengths": ["specific strength 1", "specific strength 2"],
+  "improvements": ["specific improvement 1", "specific improvement 2"],
+  "sample_answer": "A strong answer would be: ..."
+}`;
 }
