@@ -92,7 +92,7 @@ export default function TailorPage() {
         score.
       </p>
 
-      <div className="mt-8 grid gap-8 lg:grid-cols-2">
+      <div className="mt-8 grid gap-8 md:grid-cols-2">
         {/* Left: Inputs */}
         <div className="space-y-6">
           <ResumeUpload onResumeReady={handleResumeReady} />
