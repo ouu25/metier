@@ -4,6 +4,7 @@ import { initCommand } from "./commands/init.js";
 import { scoreCommand } from "./commands/score.js";
 import { tailorCommand } from "./commands/tailor.js";
 import { packListCommand, packInfoCommand } from "./commands/pack.js";
+import { interviewCommand } from "./commands/interview.js";
 
 const program = new Command();
 
@@ -32,6 +33,11 @@ program
   .option("--rewrite <mode>", "AI rewrite mode: light or deep")
   .option("--semantic", "Enable AI semantic scoring")
   .action(tailorCommand);
+
+program
+  .command("interview [pack-name]")
+  .description("Practice interview questions with AI feedback")
+  .action(interviewCommand);
 
 const packCmd = program
   .command("pack")
