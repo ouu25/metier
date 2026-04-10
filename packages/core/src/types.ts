@@ -114,12 +114,34 @@ export interface AIMessage {
   content: string;
 }
 
+export type RewriteMode = "light" | "deep";
+
+export interface SemanticMatch {
+  jd_term: string;
+  resume_term: string;
+}
+
+export interface SemanticScore {
+  overall: number;
+  confidence: number;
+  keyword_synonyms: SemanticMatch[];
+  strengths: string[];
+  gaps: string[];
+  recommendation: "strong_match" | "good_match" | "stretch" | "weak_match";
+}
+
 export interface AIProvider {
   rewriteResume(
     base: Resume,
     jd: JobDescription,
-    pack: IndustryPack
+    pack: IndustryPack,
+    mode: RewriteMode
   ): Promise<Resume>;
+  semanticScore(
+    resume: Resume,
+    jd: JobDescription,
+    pack: IndustryPack
+  ): Promise<SemanticScore>;
   evaluateJob(
     jd: JobDescription,
     resume: Resume,
