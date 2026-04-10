@@ -130,6 +130,21 @@ export interface SemanticScore {
   recommendation: "strong_match" | "good_match" | "stretch" | "weak_match";
 }
 
+export type QuestionType = "technical" | "behavioral" | "case";
+
+export interface InterviewDimension {
+  name: string;
+  score: number;
+}
+
+export interface InterviewFeedback {
+  overall_score: number;
+  dimensions: InterviewDimension[];
+  strengths: string[];
+  improvements: string[];
+  sample_answer: string;
+}
+
 export interface AIProvider {
   rewriteResume(
     base: Resume,
@@ -145,6 +160,17 @@ export interface AIProvider {
   evaluateJob(
     jd: JobDescription,
     resume: Resume,
+    pack: IndustryPack
+  ): Promise<string>;
+  conductInterview(
+    question: string,
+    questionType: QuestionType,
+    answer: string,
+    pack: IndustryPack
+  ): Promise<InterviewFeedback>;
+  generateFollowUp(
+    question: string,
+    answer: string,
     pack: IndustryPack
   ): Promise<string>;
 }
