@@ -32,7 +32,7 @@ describe("loadPack", () => {
 describe("loadAllPacks", () => {
   it("returns all available packs", async () => {
     const packs = await loadAllPacks();
-    expect(packs.length).toBe(3);
+    expect(packs.length).toBe(10);
     const names = packs.map((p) => p.name);
     expect(names).toContain("Finance & Compliance");
     expect(names).toContain("Sales & Business Development");

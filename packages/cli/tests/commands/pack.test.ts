@@ -4,7 +4,7 @@ import { loadAllPacks, loadPack } from "@metier/core";
 describe("pack commands logic", () => {
   it("lists all available packs", async () => {
     const packs = await loadAllPacks();
-    expect(packs.length).toBe(3);
+    expect(packs.length).toBe(10);
   });
 
   it("shows info for a specific pack", async () => {
