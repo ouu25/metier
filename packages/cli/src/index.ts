@@ -29,6 +29,8 @@ program
   .option("-i, --industry <name>", "Override industry detection")
   .option("--no-ai", "Skip AI rewriting, score only")
   .option("--no-pdf", "Skip PDF generation")
+  .option("--rewrite <mode>", "AI rewrite mode: light or deep")
+  .option("--semantic", "Enable AI semantic scoring")
   .action(tailorCommand);
 
 const packCmd = program
