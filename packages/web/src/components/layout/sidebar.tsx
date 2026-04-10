@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { FileText, Settings, LayoutDashboard } from "lucide-react";
+import { FileText, Settings, LayoutDashboard, MessageSquare } from "lucide-react";
 import { clsx } from "clsx";
 
 const navItems = [
   { href: "/app", label: "Dashboard", icon: LayoutDashboard },
   { href: "/app/tailor", label: "Tailor Resume", icon: FileText },
+  { href: "/app/interview", label: "Interview Prep", icon: MessageSquare },
   { href: "/app/settings", label: "Settings", icon: Settings },
 ];
 

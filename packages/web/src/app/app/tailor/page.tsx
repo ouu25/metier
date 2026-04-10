@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import Link from "next/link";
 import { ResumeUpload } from "@/components/tailor/resume-upload";
 import { JdInput } from "@/components/tailor/jd-input";
 import { ScoreDisplay } from "@/components/tailor/score-display";
@@ -167,6 +168,14 @@ export default function TailorPage() {
                   matched={result.result.score.matched_keywords}
                   missing={result.result.score.missing_keywords}
                 />
+              )}
+              {result.result.detected_industry && (
+                <Link
+                  href={`/app/interview?industry=${result.result.detected_industry}`}
+                  className="block mt-4 rounded-lg border border-blue-200 bg-blue-50 px-4 py-3 text-sm font-medium text-blue-700 hover:bg-blue-100 transition text-center"
+                >
+                  Prepare for Interview &rarr;
+                </Link>
               )}
             </>
           )}
