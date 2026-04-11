@@ -34,7 +34,15 @@ export async function GET(request: NextRequest) {
     if (!error) {
       return response;
     }
+
+    // Show error for debugging
+    const errorUrl = new URL("/auth/login", origin);
+    errorUrl.searchParams.set("error", error.message);
+    return NextResponse.redirect(errorUrl);
   }
 
-  return NextResponse.redirect(`${origin}/auth/login`);
+  // No code received
+  const noCodeUrl = new URL("/auth/login", origin);
+  noCodeUrl.searchParams.set("error", "no_code");
+  return NextResponse.redirect(noCodeUrl);
 }
