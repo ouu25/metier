@@ -2,7 +2,7 @@ import type { AIProvider } from "../types.js";
 import { ClaudeProvider } from "./claude.js";
 import { OpenAIProvider } from "./openai.js";
 
-export type ProviderName = "claude" | "openai" | "deepseek" | "minimax";
+export type ProviderName = "claude" | "openai" | "deepseek" | "minimax" | "gemini";
 
 export interface NamedAIProvider extends AIProvider {
   name: ProviderName;
@@ -30,6 +30,12 @@ export function createProvider(
         apiKey,
         "https://api.minimax.chat/v1/text/chatcompletion_v2",
         "MiniMax-Text-01"
+      );
+    case "gemini":
+      return new OpenAIProvider(
+        apiKey,
+        "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+        "gemini-2.0-flash"
       );
     default:
       throw new Error(`Unsupported AI provider: ${name}`);

@@ -37,6 +37,7 @@ export default async function SettingsPage() {
             <option value="openai">OpenAI (GPT-4o)</option>
             <option value="deepseek">DeepSeek</option>
             <option value="minimax">MiniMax</option>
+            <option value="gemini">Gemini (Google)</option>
           </select>
         </div>
 
