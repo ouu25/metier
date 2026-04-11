@@ -35,14 +35,7 @@ export async function GET(request: NextRequest) {
       return response;
     }
 
-    // Show error for debugging
-    const errorUrl = new URL("/auth/login", origin);
-    errorUrl.searchParams.set("error", error.message);
-    return NextResponse.redirect(errorUrl);
   }
 
-  // No code received
-  const noCodeUrl = new URL("/auth/login", origin);
-  noCodeUrl.searchParams.set("error", "no_code");
-  return NextResponse.redirect(noCodeUrl);
+  return NextResponse.redirect(`${origin}/auth/login`);
 }
