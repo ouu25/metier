@@ -43,6 +43,15 @@ export interface PackQuestionsResponse {
   error?: string;
 }
 
+function getDefaultProvider() {
+  const provider = process.env.DEFAULT_AI_PROVIDER as ProviderName | undefined;
+  const key = process.env.DEFAULT_AI_KEY;
+  if (provider && key) {
+    return createProvider(provider, key);
+  }
+  return null;
+}
+
 async function getAiProvider() {
   const supabase = await createClient();
   const {
@@ -56,12 +65,15 @@ async function getAiProvider() {
     .eq("id", user.id)
     .single();
 
-  if (!settings?.ai_provider || !settings?.api_key_encrypted) return null;
+  if (settings?.ai_provider && settings?.api_key_encrypted) {
+    return createProvider(
+      settings.ai_provider as ProviderName,
+      settings.api_key_encrypted
+    );
+  }
 
-  return createProvider(
-    settings.ai_provider as ProviderName,
-    settings.api_key_encrypted
-  );
+  // Fallback to server default
+  return getDefaultProvider();
 }
 
 export async function getPackQuestions(

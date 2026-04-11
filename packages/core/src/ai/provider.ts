@@ -2,7 +2,7 @@ import type { AIProvider } from "../types.js";
 import { ClaudeProvider } from "./claude.js";
 import { OpenAIProvider } from "./openai.js";
 
-export type ProviderName = "claude" | "openai";
+export type ProviderName = "claude" | "openai" | "deepseek" | "minimax";
 
 export interface NamedAIProvider extends AIProvider {
   name: ProviderName;
@@ -19,6 +19,18 @@ export function createProvider(
       return new ClaudeProvider(apiKey);
     case "openai":
       return new OpenAIProvider(apiKey);
+    case "deepseek":
+      return new OpenAIProvider(
+        apiKey,
+        "https://api.deepseek.com/v1/chat/completions",
+        "deepseek-chat"
+      );
+    case "minimax":
+      return new OpenAIProvider(
+        apiKey,
+        "https://api.minimax.chat/v1/text/chatcompletion_v2",
+        "MiniMax-Text-01"
+      );
     default:
       throw new Error(`Unsupported AI provider: ${name}`);
   }

@@ -32,9 +32,11 @@ export default async function SettingsPage() {
             defaultValue={settings?.ai_provider ?? ""}
             className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
           >
-            <option value="">None (free features only)</option>
+            <option value="">None (use default)</option>
             <option value="claude">Claude (Anthropic)</option>
             <option value="openai">OpenAI (GPT-4o)</option>
+            <option value="deepseek">DeepSeek</option>
+            <option value="minimax">MiniMax</option>
           </select>
         </div>
 

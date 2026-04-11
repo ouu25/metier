@@ -25,7 +25,19 @@ export interface TailorResponse {
   hasAiKey?: boolean;
 }
 
+function getDefaultProvider() {
+  const provider = process.env.DEFAULT_AI_PROVIDER as ProviderName | undefined;
+  const key = process.env.DEFAULT_AI_KEY;
+  if (provider && key) {
+    return createProvider(provider, key);
+  }
+  return null;
+}
+
 export async function checkAiKey(): Promise<boolean> {
+  // If server has a default key, AI is always available
+  if (getDefaultProvider()) return true;
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -64,6 +76,11 @@ export async function runTailor(
           settings.api_key_encrypted
         );
       }
+    }
+
+    // Fallback to server default if user has no key
+    if (!aiProvider) {
+      aiProvider = getDefaultProvider() ?? undefined;
     }
 
     const rewriteMode: RewriteMode | undefined =

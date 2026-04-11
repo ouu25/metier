@@ -13,10 +13,13 @@ import type { NamedAIProvider } from "./provider.js";
 export class OpenAIProvider implements NamedAIProvider {
   readonly name = "openai" as const;
   private apiKey: string;
-  private baseUrl = "https://api.openai.com/v1/chat/completions";
+  private baseUrl: string;
+  private model: string;
 
-  constructor(apiKey: string) {
+  constructor(apiKey: string, baseUrl?: string, model?: string) {
     this.apiKey = apiKey;
+    this.baseUrl = baseUrl ?? "https://api.openai.com/v1/chat/completions";
+    this.model = model ?? "gpt-4o";
   }
 
   async rewriteResume(
@@ -110,7 +113,7 @@ export class OpenAIProvider implements NamedAIProvider {
         Authorization: `Bearer ${this.apiKey}`,
       },
       body: JSON.stringify({
-        model: "gpt-4o",
+        model: this.model,
         messages: messages.map((m) => ({ role: m.role, content: m.content })),
         max_tokens: 4096,
       }),
