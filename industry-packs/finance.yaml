@@ -1,16 +1,37 @@
-name: Finance & Compliance
+name: Finance, Risk & Compliance
 aliases:
   - audit
   - compliance
   - financial
   - risk
+  - risk management
+  - risk assessment
   - internal control
+  - internal controls
+  - control testing
   - treasury
   - FP&A
   - accounting
+  - GRC
+  - governance
+  - regulatory
+  - regulatory compliance
+  - cybersecurity
+  - infosec
+  - information security
+  - data privacy
+  - data protection
+  - SOX
+  - SOC 2
+  - ISO 27001
+  - NIST
+  - HIPAA
+  - GDPR
+  - PIPL
   - "合规"
   - "财务"
   - "审计"
+  - "风险"
   - "Finanz"
   - "comptabilité"
   - "監査"
@@ -20,40 +41,76 @@ keywords:
     - IFRS
     - GAAP
     - internal audit
+    - external audit
     - risk assessment
+    - risk management
+    - control testing
+    - control framework
+    - regulatory compliance
+    - regulatory reporting
+    - governance
+    - GRC
     - financial modeling
     - FP&A
     - DCF analysis
     - budget variance
-    - regulatory reporting
     - financial analysis
     - forecasting
     - reconciliation
     - tax compliance
     - anti-money laundering
+    - data privacy
+    - GDPR
+    - PIPL
+    - HIPAA
+    - NIST
+    - ISO 27001
+    - SOC 2
+    - PCI-DSS
+    - FedRAMP
+    - COBIT
+    - cybersecurity
+    - information security
+    - third-party risk
+    - vendor risk
+    - audit findings
+    - remediation
   soft_skills:
     - stakeholder management
     - cross-functional collaboration
     - attention to detail
     - analytical thinking
     - regulatory communication
+    - executive reporting
+    - program management
   certifications:
     - CPA
     - ACCA
     - CIA
     - CISA
+    - CISM
+    - CISSP
+    - CRISC
+    - CGEIT
     - FRM
     - CFA
     - CMA
+    - PMP
   tools:
     - SAP
     - Oracle
     - Bloomberg
-    - Excel (advanced)
+    - Excel
     - Power BI
+    - Tableau
     - Hyperion
     - BlackLine
     - Workiva
+    - Archer
+    - ServiceNow
+    - ServiceNow GRC
+    - Xacta
+    - CSAM
 scoring_dimensions:
   - name: Regulatory Knowledge
     weight: 0.20
