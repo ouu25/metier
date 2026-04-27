@@ -21,7 +21,7 @@ export function detectIndustry(text: string): string | undefined {
 
   for (const [name, pack] of Object.entries(PACKS)) {
     const count = pack.aliases.filter((alias) =>
-      lower.includes(alias.toLowerCase())
+      aliasMatches(alias, lower)
     ).length;
     if (count > bestCount) {
       bestCount = count;
@@ -30,6 +30,23 @@ export function detectIndustry(text: string): string | undefined {
   }
 
   return bestCount > 0 ? bestMatch : undefined;
+}
+
+function aliasMatches(alias: string, lowerText: string): boolean {
+  const lowerAlias = alias.toLowerCase();
+  // Non-ASCII (CJK, accents): plain substring is fine — those scripts
+  // don't suffer from English short-abbreviation noise like "UI" matching
+  // "build" or "BI" matching "ability".
+  if (!/^[\x00-\x7F]+$/.test(lowerAlias)) {
+    return lowerText.includes(lowerAlias);
+  }
+  // ASCII: require a left word boundary so 2-letter aliases ("UI", "BI",
+  // "IP", "BD", "HR") don't match incidental substrings, and "design" no
+  // longer matches "redesigned" prefixes. Right side is open so conjugations
+  // ("auditor", "compliances", "designs") still count.
+  const escaped = lowerAlias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const re = new RegExp(`(?:^|[^a-z0-9])${escaped}`);
+  return re.test(lowerText);
 }
 
 function validatePack(pack: IndustryPack, name: string): void {

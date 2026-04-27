@@ -156,7 +156,23 @@ function estimateYearsFromExperience(resume: Resume): number {
       total += end - start;
     }
   }
-  return total;
+  if (total > 0 || !resume.raw_text) return total;
+
+  // Fallback: structured experience parse failed (common with PDF/DOCX
+  // that don't follow "Company - Title - 2020-2023" layout). Estimate
+  // total years from the earliest 4-digit year mentioned to now, or sum
+  // explicit "X years" mentions.
+  const yearMentionMatch = resume.raw_text.match(/(\d{1,2})\s*\+?\s*years?/i);
+  if (yearMentionMatch) {
+    return parseInt(yearMentionMatch[1], 10);
+  }
+  const allYears = [...resume.raw_text.matchAll(/\b(19|20)\d{2}\b/g)]
+    .map((m) => parseInt(m[0], 10))
+    .filter((y) => y >= 1990 && y <= new Date().getFullYear());
+  if (allYears.length >= 2) {
+    return new Date().getFullYear() - Math.min(...allYears);
+  }
+  return 0;
 }
 
 function generateSuggestions(
