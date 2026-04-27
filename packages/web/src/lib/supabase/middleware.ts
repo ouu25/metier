@@ -36,8 +36,8 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // Redirect authenticated users away from auth pages
-  if (user && request.nextUrl.pathname.startsWith("/auth")) {
+  // Let OAuth callbacks exchange their code before auth-page redirects run.
+  if (user && request.nextUrl.pathname.startsWith("/auth") && request.nextUrl.pathname !== "/auth/callback") {
     const url = request.nextUrl.clone();
     url.pathname = "/app";
     return NextResponse.redirect(url);

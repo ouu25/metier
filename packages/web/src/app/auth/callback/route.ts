@@ -35,6 +35,9 @@ export async function GET(request: NextRequest) {
       return response;
     }
 
+    const url = new URL("/auth/login", origin);
+    url.searchParams.set("error", error.message);
+    return NextResponse.redirect(url);
   }
 
   return NextResponse.redirect(`${origin}/auth/login`);
