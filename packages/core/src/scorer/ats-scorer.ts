@@ -51,6 +51,7 @@ export function scoreATS(
 
 function buildResumeText(resume: Resume): string {
   const parts = [
+    resume.raw_text ?? "",
     resume.summary,
     ...resume.experience.flatMap((e) => [e.title, e.company, ...e.bullets]),
     ...resume.education.map((e) => `${e.degree} ${e.institution}`),

@@ -29,6 +29,7 @@ export interface Resume {
   education: Education[];
   skills: string[];
   certifications: string[];
+  raw_text?: string;
 }
 
 export interface KeywordSet {

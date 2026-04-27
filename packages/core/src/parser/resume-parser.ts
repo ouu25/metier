@@ -48,7 +48,16 @@ function parseTextResume(text: string): Resume {
   const skills = parseSkillsLine(sections.skills ?? []);
   const certifications = parseSkillsLine(sections.certifications ?? []);
 
-  return { name, contact, summary, experience, education, skills, certifications };
+  return {
+    name,
+    contact,
+    summary,
+    experience,
+    education,
+    skills,
+    certifications,
+    raw_text: text,
+  };
 }
 
 async function parsePdfResume(buffer: Buffer): Promise<Resume> {
