@@ -1,66 +1,31 @@
-import { readFile, readdir } from "node:fs/promises";
-import { join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-import yaml from "js-yaml";
 import type { IndustryPack } from "../types.js";
-
-const PACKS_DIR = resolve(
-  fileURLToPath(import.meta.url),
-  "../../../../../industry-packs"
-);
+import { PACKS } from "./packs.generated.js";
 
 export async function loadPack(name: string): Promise<IndustryPack> {
-  const filePath = join(PACKS_DIR, `${name}.yaml`);
-  let content: string;
-  try {
-    content = await readFile(filePath, "utf-8");
-  } catch {
+  const pack = PACKS[name];
+  if (!pack) {
     throw new Error(`Pack not found: ${name}`);
   }
-  const pack = yaml.load(content) as IndustryPack;
   validatePack(pack, name);
   return pack;
 }
 
 export async function loadAllPacks(): Promise<IndustryPack[]> {
-  const files = await readdir(PACKS_DIR);
-  const yamlFiles = files.filter((f: string) => f.endsWith(".yaml"));
-  const packs: IndustryPack[] = [];
-  for (const file of yamlFiles) {
-    const name = file.replace(".yaml", "");
-    packs.push(await loadPack(name));
-  }
-  return packs;
+  return Object.values(PACKS);
 }
 
 export function detectIndustry(text: string): string | undefined {
-  const packAliases: Record<string, string[]> = {
-    finance: [
-      "audit", "compliance", "financial", "risk", "internal control",
-      "treasury", "fp&a", "accounting", "gaap", "ifrs", "sox",
-      "合规", "财务", "审计", "finanz", "comptabilité", "監査",
-    ],
-    sales: [
-      "sales", "business development", "account management", "revenue",
-      "quota", "pipeline", "lead generation", "bd",
-      "销售", "営業", "vertrieb", "ventes",
-    ],
-    engineering: [
-      "software engineer", "developer", "devops", "backend", "frontend",
-      "full stack", "sre", "microservices", "ci/cd",
-      "工程师", "エンジニア", "entwickler", "développeur",
-    ],
-  };
-
   const lower = text.toLowerCase();
   let bestMatch: string | undefined;
   let bestCount = 0;
 
-  for (const [industry, aliases] of Object.entries(packAliases)) {
-    const count = aliases.filter((alias) => lower.includes(alias.toLowerCase())).length;
+  for (const [name, pack] of Object.entries(PACKS)) {
+    const count = pack.aliases.filter((alias) =>
+      lower.includes(alias.toLowerCase())
+    ).length;
     if (count > bestCount) {
       bestCount = count;
-      bestMatch = industry;
+      bestMatch = name;
     }
   }
 

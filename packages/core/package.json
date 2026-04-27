@@ -5,6 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "generate-packs": "node scripts/generate-packs.mjs",
+    "prebuild": "node scripts/generate-packs.mjs",
     "build": "tsc",
     "test": "vitest run",
     "lint": "eslint src/",
