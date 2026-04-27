@@ -23,7 +23,7 @@ export function createProvider(
       return new OpenAIProvider(
         apiKey,
         "https://api.deepseek.com/v1/chat/completions",
-        "deepseek-chat"
+        "deepseek-v4-pro"
       );
     case "minimax":
       return new OpenAIProvider(
