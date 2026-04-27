@@ -6,12 +6,14 @@ import {
   type TailorOutput,
   type ProviderName,
   type RewriteMode,
+  type InputFormat,
 } from "@metier/core";
+import { Buffer } from "node:buffer";
 import { createClient } from "@/lib/supabase/server";
 
 export interface TailorRequest {
   resumeContent: string;
-  resumeFormat: "json" | "text";
+  resumeFormat: InputFormat;
   jdText: string;
   industry?: string;
   generatePdf: boolean;
@@ -83,13 +85,18 @@ export async function runTailor(
       aiProvider = getDefaultProvider() ?? undefined;
     }
 
+    const resumeContent =
+      request.resumeFormat === "pdf" || request.resumeFormat === "docx"
+        ? Buffer.from(request.resumeContent, "base64")
+        : request.resumeContent;
+
     const rewriteMode: RewriteMode | undefined =
       request.rewriteMode && request.rewriteMode !== "off"
         ? (request.rewriteMode as RewriteMode)
         : undefined;
 
     const result = await tailor({
-      resumeContent: request.resumeContent,
+      resumeContent,
       resumeFormat: request.resumeFormat,
       jdText: request.jdText,
       industry: request.industry,

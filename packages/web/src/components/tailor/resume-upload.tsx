@@ -2,25 +2,58 @@
 
 import { useState, useCallback } from "react";
 import { Upload, FileText, X } from "lucide-react";
+import type { InputFormat } from "@metier/core";
 
 interface ResumeUploadProps {
-  onResumeReady: (content: string, format: "json" | "text") => void;
+  onResumeReady: (content: string, format: InputFormat) => void;
 }
+
+const MAX_FILE_BYTES = 4 * 1024 * 1024;
 
 export function ResumeUpload({ onResumeReady }: ResumeUploadProps) {
   const [fileName, setFileName] = useState<string | null>(null);
   const [mode, setMode] = useState<"upload" | "paste">("upload");
   const [pasteText, setPasteText] = useState("");
+  const [error, setError] = useState<string | null>(null);
 
   const handleFile = useCallback(
     async (file: File) => {
-      setFileName(file.name);
-      const text = await file.text();
+      setError(null);
+      const lowerName = file.name.toLowerCase();
+      const isBinary = lowerName.endsWith(".pdf") || lowerName.endsWith(".docx");
 
-      if (file.name.endsWith(".json")) {
+      if (isBinary && file.size > MAX_FILE_BYTES) {
+        setError(`File is ${(file.size / 1024 / 1024).toFixed(1)}MB. Please upload a PDF or DOCX under 4MB.`);
+        return;
+      }
+
+      setFileName(file.name);
+
+      if (lowerName.endsWith(".json")) {
+        const text = await file.text();
         onResumeReady(text, "json");
-      } else {
+        return;
+      }
+
+      if (lowerName.endsWith(".txt")) {
+        const text = await file.text();
         onResumeReady(text, "text");
+        return;
+      }
+
+      if (isBinary) {
+        const buffer = await file.arrayBuffer();
+        const bytes = new Uint8Array(buffer);
+        let binary = "";
+
+        for (const byte of bytes) {
+          binary += String.fromCharCode(byte);
+        }
+
+        onResumeReady(
+          btoa(binary),
+          lowerName.endsWith(".pdf") ? "pdf" : "docx"
+        );
       }
     },
     [onResumeReady]
@@ -109,11 +142,11 @@ export function ResumeUpload({ onResumeReady }: ResumeUploadProps) {
           <p className="text-sm text-gray-500">
             Drop a file here or <span className="text-blue-600">browse</span>
           </p>
-          <p className="text-xs text-gray-400">JSON or plain text</p>
+          <p className="text-xs text-gray-400">PDF, DOCX, JSON, or plain text (max 4MB)</p>
           <input
             id="resume-file"
             type="file"
-            accept=".json,.txt"
+            accept=".pdf,.docx,.json,.txt"
             className="hidden"
             onChange={(e) => {
               const file = e.target.files?.[0];
@@ -121,6 +154,9 @@ export function ResumeUpload({ onResumeReady }: ResumeUploadProps) {
             }}
           />
         </div>
+      )}
+      {error && (
+        <p className="text-sm text-red-600">{error}</p>
       )}
     </div>
   );

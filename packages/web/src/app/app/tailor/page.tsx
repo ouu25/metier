@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Link from "next/link";
+import type { InputFormat } from "@metier/core";
 import { ResumeUpload } from "@/components/tailor/resume-upload";
 import { JdInput } from "@/components/tailor/jd-input";
 import { ScoreDisplay } from "@/components/tailor/score-display";
@@ -18,7 +19,7 @@ type Tab = "score" | "diff" | "keywords";
 
 export default function TailorPage() {
   const [resumeContent, setResumeContent] = useState<string | null>(null);
-  const [resumeFormat, setResumeFormat] = useState<"json" | "text">("text");
+  const [resumeFormat, setResumeFormat] = useState<InputFormat>("text");
   const [jdText, setJdText] = useState<string | null>(null);
   const [result, setResult] = useState<TailorResponse | null>(null);
   const [loading, setLoading] = useState(false);
@@ -35,7 +36,7 @@ export default function TailorPage() {
   }, []);
 
   const handleResumeReady = useCallback(
-    (content: string, format: "json" | "text") => {
+    (content: string, format: InputFormat) => {
       setResumeContent(content);
       setResumeFormat(format);
     },

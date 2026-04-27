@@ -52,8 +52,11 @@ function parseTextResume(text: string): Resume {
 }
 
 async function parsePdfResume(buffer: Buffer): Promise<Resume> {
-  const pdfParse = await import("pdf-parse");
-  const data = await pdfParse.default(buffer);
+  // Import the inner module directly: pdf-parse's index.js runs a debug
+  // block that reads a bundled test PDF, which crashes on Vercel serverless
+  // because the test fixture isn't included in the deployment bundle.
+  const pdfParse = (await import("pdf-parse/lib/pdf-parse.js")).default;
+  const data = await pdfParse(buffer);
   return parseTextResume(data.text);
 }
 
