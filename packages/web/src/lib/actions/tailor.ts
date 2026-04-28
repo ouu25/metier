@@ -11,12 +11,6 @@ import {
 import { Buffer } from "node:buffer";
 import { createClient } from "@/lib/supabase/server";
 
-// Rewrite + semantic both call the LLM; on a long resume DeepSeek can take
-// 30-60s. Vercel's default cap (10s on free, longer on paid) kills the
-// function mid-call and the UI hangs indefinitely. Hobby's hard ceiling
-// is 60s — set the max we're allowed.
-export const maxDuration = 60;
-
 export interface TailorRequest {
   resumeContent: string;
   resumeFormat: InputFormat;

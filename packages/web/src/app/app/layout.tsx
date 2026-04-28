@@ -5,6 +5,12 @@ import { NavUser } from "@/components/layout/nav-user";
 
 export const dynamic = "force-dynamic";
 
+// Server actions under /app (tailor, interview) call the LLM and routinely
+// take 30-60s. Default Vercel function cap (10s on free, 15s on Hobby)
+// kills them mid-call and the UI hangs indefinitely. 60s is Hobby's
+// ceiling; bump to 300 if/when on Pro.
+export const maxDuration = 60;
+
 export default async function AppLayout({
   children,
 }: {
