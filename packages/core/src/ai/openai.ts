@@ -29,10 +29,13 @@ export class OpenAIProvider implements NamedAIProvider {
     mode: RewriteMode
   ): Promise<Resume> {
     const prompt = buildRewritePrompt(base, jd, pack, mode);
-    const response = await this.chat([
-      { role: "system", content: buildRewriteSystem(pack, mode) },
-      { role: "user", content: prompt },
-    ]);
+    const response = await this.chat(
+      [
+        { role: "system", content: buildRewriteSystem(pack, mode) },
+        { role: "user", content: prompt },
+      ],
+      { maxTokens: 8192, jsonMode: true }
+    );
     return JSON.parse(extractJson(response));
   }
 
@@ -105,18 +108,26 @@ export class OpenAIProvider implements NamedAIProvider {
     return response.trim();
   }
 
-  private async chat(messages: AIMessage[]): Promise<string> {
+  private async chat(
+    messages: AIMessage[],
+    opts: { maxTokens?: number; jsonMode?: boolean } = {}
+  ): Promise<string> {
+    const body: Record<string, unknown> = {
+      model: this.model,
+      messages: messages.map((m) => ({ role: m.role, content: m.content })),
+      max_tokens: opts.maxTokens ?? 4096,
+    };
+    if (opts.jsonMode) {
+      body.response_format = { type: "json_object" };
+    }
+
     const response = await fetch(this.baseUrl, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${this.apiKey}`,
       },
-      body: JSON.stringify({
-        model: this.model,
-        messages: messages.map((m) => ({ role: m.role, content: m.content })),
-        max_tokens: 4096,
-      }),
+      body: JSON.stringify(body),
     });
 
     if (!response.ok) {
@@ -132,15 +143,24 @@ export class OpenAIProvider implements NamedAIProvider {
 }
 
 function extractJson(text: string): string {
-  const match = text.match(/\{[\s\S]*\}/);
+  const stripped = text.replace(/```(?:json)?\s*([\s\S]*?)```/g, "$1");
+  const match = stripped.match(/\{[\s\S]*\}/);
   if (!match) throw new Error("No JSON found in AI response");
   return match[0];
 }
 
 function buildRewriteSystem(pack: IndustryPack, mode: RewriteMode): string {
   return `You are a professional resume writer specializing in ${pack.name}.
-You MUST return valid JSON matching this schema:
-{"name","contact":{"email?","phone?","linkedin?","location?"},"summary","experience":[{"company","title","dates","bullets":[]}],"education":[{"institution","degree","dates"}],"skills":[],"certifications":[]}
+You MUST return ONE valid JSON object and nothing else (no markdown fences, no commentary).
+
+The JSON must have exactly these keys with these types:
+- "name": string
+- "contact": object with optional "email", "phone", "linkedin", "location" string fields
+- "summary": string
+- "experience": array of { "company": string, "title": string, "dates": string, "bullets": string[] }
+- "education": array of { "institution": string, "degree": string, "dates": string }
+- "skills": string[]
+- "certifications": string[]
 
 RULES:
 - NEVER fabricate experience, companies, degrees, or certifications

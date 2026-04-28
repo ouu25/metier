@@ -26,10 +26,13 @@ export class ClaudeProvider implements NamedAIProvider {
     mode: RewriteMode
   ): Promise<Resume> {
     const prompt = buildRewritePrompt(base, jd, pack, mode);
-    const response = await this.chat([
-      { role: "system", content: buildRewriteSystem(pack, mode) },
-      { role: "user", content: prompt },
-    ]);
+    const response = await this.chat(
+      [
+        { role: "system", content: buildRewriteSystem(pack, mode) },
+        { role: "user", content: prompt },
+      ],
+      { maxTokens: 8192 }
+    );
     return JSON.parse(extractJson(response));
   }
 
@@ -102,7 +105,10 @@ export class ClaudeProvider implements NamedAIProvider {
     return response.trim();
   }
 
-  private async chat(messages: AIMessage[]): Promise<string> {
+  private async chat(
+    messages: AIMessage[],
+    opts: { maxTokens?: number } = {}
+  ): Promise<string> {
     const systemMsg = messages.find((m) => m.role === "system");
     const userMsgs = messages.filter((m) => m.role !== "system");
 
@@ -115,7 +121,7 @@ export class ClaudeProvider implements NamedAIProvider {
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
-        max_tokens: 4096,
+        max_tokens: opts.maxTokens ?? 4096,
         system: systemMsg?.content ?? "",
         messages: userMsgs.map((m) => ({ role: m.role, content: m.content })),
       }),
@@ -134,15 +140,24 @@ export class ClaudeProvider implements NamedAIProvider {
 }
 
 function extractJson(text: string): string {
-  const match = text.match(/\{[\s\S]*\}/);
+  const stripped = text.replace(/```(?:json)?\s*([\s\S]*?)```/g, "$1");
+  const match = stripped.match(/\{[\s\S]*\}/);
   if (!match) throw new Error("No JSON found in AI response");
   return match[0];
 }
 
 function buildRewriteSystem(pack: IndustryPack, mode: RewriteMode): string {
   return `You are a professional resume writer specializing in ${pack.name}.
-You MUST return valid JSON matching this schema:
-{"name","contact":{"email?","phone?","linkedin?","location?"},"summary","experience":[{"company","title","dates","bullets":[]}],"education":[{"institution","degree","dates"}],"skills":[],"certifications":[]}
+You MUST return ONE valid JSON object and nothing else (no markdown fences, no commentary).
+
+The JSON must have exactly these keys with these types:
+- "name": string
+- "contact": object with optional "email", "phone", "linkedin", "location" string fields
+- "summary": string
+- "experience": array of { "company": string, "title": string, "dates": string, "bullets": string[] }
+- "education": array of { "institution": string, "degree": string, "dates": string }
+- "skills": string[]
+- "certifications": string[]
 
 RULES:
 - NEVER fabricate experience, companies, degrees, or certifications
