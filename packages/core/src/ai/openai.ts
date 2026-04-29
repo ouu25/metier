@@ -222,11 +222,15 @@ function buildRewritePrompt(
 - Missing keywords to inject: ${missing.join(", ")}`;
   }
 
-  // Strip raw_text and truncate JD to keep the prompt small. Including the
-  // full resume + JD blew up DeepSeek's response time past 60s and tripped
-  // the function timeout. Structured fields are enough for rewrite, and the
-  // first ~2000 chars of a JD almost always cover responsibilities + reqs.
-  const trimmedBase = { ...base, raw_text: undefined };
+  // Truncate (don't strip) raw_text and JD to balance context vs latency.
+  // Stripping raw_text entirely meant the model couldn't see real bullets
+  // and its rewrites became trivial; including the full payload pushed
+  // response time past Vercel's 60s function cap. 4000 chars covers a
+  // typical full resume; 2000 covers a JD's responsibilities + reqs.
+  const trimmedBase = {
+    ...base,
+    raw_text: base.raw_text ? base.raw_text.slice(0, 4000) : undefined,
+  };
   const trimmedJd = jd.raw_text.slice(0, 2000);
 
   return `${modeInstructions}

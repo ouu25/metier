@@ -219,7 +219,10 @@ function buildRewritePrompt(
 - Missing keywords to inject: ${missing.join(", ")}`;
   }
 
-  const trimmedBase = { ...base, raw_text: undefined };
+  const trimmedBase = {
+    ...base,
+    raw_text: base.raw_text ? base.raw_text.slice(0, 4000) : undefined,
+  };
   const trimmedJd = jd.raw_text.slice(0, 2000);
 
   return `${modeInstructions}
