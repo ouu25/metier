@@ -181,6 +181,9 @@ The JSON must have exactly these keys with these types:
 RULES:
 - NEVER fabricate experience, companies, degrees, or certifications
 - NEVER change: name, contact info, company names, job titles, dates, education institutions
+- NEVER invent specific numbers, percentages, monetary amounts, headcounts, or incident counts. Only keep quantified results that already appear in the original resume; if the original is unquantified, leave it unquantified.
+- NEVER name a consulting client. Refer to clients with generic descriptors only ("a global pharmaceutical company", "a multinational FMCG client", "a leading consumer healthcare firm"). This applies even if the client is mentioned in the JD or job context.
+- Treat advisory/consulting tenure as advisory work — never reframe it as an in-house compliance, audit, or DPO position.
 - Mode: ${mode}`;
 }
 
