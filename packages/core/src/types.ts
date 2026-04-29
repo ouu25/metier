@@ -98,7 +98,7 @@ export interface DimensionScore {
 
 export interface TailorResult {
   score: ATSScore;
-  tailored_resume?: Resume;
+  rewrite_suggestions?: RewriteSuggestions;
   pdf_path?: string;
 }
 
@@ -116,6 +116,23 @@ export interface AIMessage {
 }
 
 export type RewriteMode = "light" | "deep";
+
+export type RewriteChangeAction = "add" | "replace" | "skip";
+
+export interface RewriteChange {
+  action: RewriteChangeAction;
+  section: "summary" | "skills" | "experience" | "certifications";
+  jd_keyword?: string;
+  original?: string;
+  proposed: string;
+  rationale: string;
+}
+
+export interface RewriteSuggestions {
+  verdict: "good_fit" | "stretch" | "skip";
+  verdict_reason: string;
+  changes: RewriteChange[];
+}
 
 export interface SemanticMatch {
   jd_term: string;
@@ -152,7 +169,7 @@ export interface AIProvider {
     jd: JobDescription,
     pack: IndustryPack,
     mode: RewriteMode
-  ): Promise<Resume>;
+  ): Promise<RewriteSuggestions>;
   semanticScore(
     resume: Resume,
     jd: JobDescription,

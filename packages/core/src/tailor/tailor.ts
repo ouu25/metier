@@ -72,10 +72,11 @@ export async function tailor(options: TailorOptions): Promise<TailorOutput> {
     );
   }
 
-  // AI rewriting (optional)
+  // AI rewrite suggestions (optional). Returns a change-list, not a
+  // rewritten resume — the user reviews each suggestion before applying.
   if (options.rewriteMode && options.aiProvider && pack) {
     result.original_resume = resume;
-    result.tailored_resume = await options.aiProvider.rewriteResume(
+    result.rewrite_suggestions = await options.aiProvider.rewriteResume(
       resume,
       jd,
       pack,
@@ -83,12 +84,13 @@ export async function tailor(options: TailorOptions): Promise<TailorOutput> {
     );
   }
 
-  // PDF generation
+  // PDF generation off the original resume. With the suggestion-list
+  // workflow the user applies changes locally, so there is no fully
+  // rewritten resume here to render.
   if (options.generatePdf && pack) {
-    const finalResume = result.tailored_resume ?? resume;
     const outputPath = options.outputPath ?? `tailored-${Date.now()}.pdf`;
     result.pdf_path = await generatePDF(
-      finalResume,
+      resume,
       pack.resume_style,
       outputPath
     );

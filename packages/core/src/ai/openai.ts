@@ -4,6 +4,7 @@ import type {
   IndustryPack,
   AIMessage,
   RewriteMode,
+  RewriteSuggestions,
   SemanticScore,
   QuestionType,
   InterviewFeedback,
@@ -27,14 +28,14 @@ export class OpenAIProvider implements NamedAIProvider {
     jd: JobDescription,
     pack: IndustryPack,
     mode: RewriteMode
-  ): Promise<Resume> {
+  ): Promise<RewriteSuggestions> {
     const prompt = buildRewritePrompt(base, jd, pack, mode);
     const response = await this.chat(
       [
         { role: "system", content: buildRewriteSystem(pack, mode) },
         { role: "user", content: prompt },
       ],
-      { maxTokens: 8192, jsonMode: true }
+      { maxTokens: 4096, jsonMode: true }
     );
     return JSON.parse(extractJson(response));
   }
@@ -166,25 +167,33 @@ function extractJson(text: string): string {
 }
 
 function buildRewriteSystem(pack: IndustryPack, mode: RewriteMode): string {
-  return `You are a professional resume writer specializing in ${pack.name}.
-You MUST return ONE valid JSON object and nothing else (no markdown fences, no commentary).
+  return `You are an honest career advisor specializing in ${pack.name}.
+Your job is NOT to rewrite the resume for the user. Your job is to produce a SHORT, ACTIONABLE change-list the user can review and apply themselves.
 
-The JSON must have exactly these keys with these types:
-- "name": string
-- "contact": object with optional "email", "phone", "linkedin", "location" string fields
-- "summary": string
-- "experience": array of { "company": string, "title": string, "dates": string, "bullets": string[] }
-- "education": array of { "institution": string, "degree": string, "dates": string }
-- "skills": string[]
-- "certifications": string[]
+Return ONE valid JSON object and nothing else (no markdown fences, no commentary). The JSON must match exactly this shape:
+{
+  "verdict": "good_fit" | "stretch" | "skip",
+  "verdict_reason": "<one sentence explaining the verdict, naming the hard-blockers if any>",
+  "changes": [
+    {
+      "action": "add" | "replace" | "skip",
+      "section": "summary" | "skills" | "experience" | "certifications",
+      "jd_keyword": "<the JD term this change targets, if any>",
+      "original": "<the exact original text being replaced — only when action is 'replace'>",
+      "proposed": "<for 'add': the new text to insert; for 'replace': the replacement text; for 'skip': empty string>",
+      "rationale": "<one sentence: why this change is justified by the original resume, OR why this missing keyword should be SKIPPED because the candidate has no supporting experience>"
+    }
+  ]
+}
 
-RULES:
-- NEVER fabricate experience, companies, degrees, or certifications
-- NEVER change: name, contact info, company names, job titles, dates, education institutions
-- NEVER invent specific numbers, percentages, monetary amounts, headcounts, or incident counts. Only keep quantified results that already appear in the original resume; if the original is unquantified, leave it unquantified.
-- NEVER name a consulting client. Refer to clients with generic descriptors only ("a global pharmaceutical company", "a multinational FMCG client", "a leading consumer healthcare firm"). This applies even if the client is mentioned in the JD or job context.
-- Treat advisory/consulting tenure as advisory work — never reframe it as an in-house compliance, audit, or DPO position.
-- Mode: ${mode}`;
+HARD RULES — violating any of these makes the suggestion useless:
+- NEVER invent specific numbers, percentages, monetary amounts, headcounts, or incident counts. Only reuse numbers that already appear in the original resume.
+- NEVER name a consulting client. Use generic descriptors ("a global pharmaceutical company", "a multinational FMCG client").
+- NEVER reframe advisory/consulting tenure as in-house compliance / audit / DPO.
+- For each missing JD keyword the candidate has NO real supporting experience for (e.g. NIST, FedRAMP, HIPAA when the candidate hasn't worked in those frameworks), output a "skip" change with rationale, NOT a fake insertion.
+- Prefer 'replace' over 'add' when the candidate already does the thing under different wording (e.g. their "Internal Audit" can be relabeled "Internal Audit & Control Testing" if JD wants "control testing").
+- Cap total changes at 8. Quality over quantity.
+- Mode: ${mode} — light = only terminology swaps and skills additions; deep = also bullet rephrasings (still no invented numbers).`;
 }
 
 function buildRewritePrompt(
@@ -209,27 +218,11 @@ function buildRewritePrompt(
 
   let modeInstructions: string;
 
-  if (mode === "light") {
-    modeInstructions = `Make MINIMAL changes only:
-- Inject these missing keywords into existing bullets where truthful: ${missing.join(", ")}
-- Reorder skills to prioritize: ${topSkills.join(", ")}
-- Adjust summary to naturally include top missing keywords
-- Do NOT rewrite bullets from scratch — only insert keywords where they fit naturally`;
-  } else {
-    modeInstructions = `Rewrite for MAXIMUM ATS match:
-- Rewrite summary (2-3 sentences) targeting this specific role
-- Rewrite each bullet using format: "Action verb + what + quantified result"
-- Reorder experience to lead with most relevant role
-- Expand skills list with likely skills inferred from experience
-- Prioritize skills matching: ${topSkills.join(", ")}
-- Missing keywords to inject: ${missing.join(", ")}`;
-  }
+  modeInstructions =
+    mode === "light"
+      ? "Mode: light. Suggest only terminology swaps in skills/summary and skill list additions. Do NOT propose changes to experience bullets."
+      : "Mode: deep. May also propose 'replace' changes to specific experience bullets, as long as no numbers are invented and the rephrasing is supported by the original bullet's content.";
 
-  // Truncate (don't strip) raw_text and JD to balance context vs latency.
-  // Stripping raw_text entirely meant the model couldn't see real bullets
-  // and its rewrites became trivial; including the full payload pushed
-  // response time past Vercel's 60s function cap. 4000 chars covers a
-  // typical full resume; 2000 covers a JD's responsibilities + reqs.
   const trimmedBase = {
     ...base,
     raw_text: base.raw_text ? base.raw_text.slice(0, 4000) : undefined,
@@ -238,11 +231,16 @@ function buildRewritePrompt(
 
   return `${modeInstructions}
 
-Current resume:
+Missing JD keywords to consider (some may genuinely lack supporting experience — output "skip" for those): ${missing.join(", ")}
+Top JD skills to prioritize when ordering: ${topSkills.join(", ")}
+
+Original resume (truncated):
 ${JSON.stringify(trimmedBase, null, 2)}
 
-Job description:
-${trimmedJd}`;
+Job description (truncated):
+${trimmedJd}
+
+Now produce the change-list JSON.`;
 }
 
 function buildSemanticPrompt(

@@ -8,7 +8,7 @@ import { JdInput } from "@/components/tailor/jd-input";
 import { ScoreDisplay } from "@/components/tailor/score-display";
 import { KeywordChips } from "@/components/tailor/keyword-chips";
 import { ModeSelector } from "@/components/tailor/mode-selector";
-import { ResumeDiff } from "@/components/tailor/resume-diff";
+import { RewriteChecklist } from "@/components/tailor/rewrite-checklist";
 import {
   runTailor,
   checkAiKey,
@@ -67,7 +67,7 @@ export default function TailorPage() {
       setError(response.error);
     } else {
       setResult(response);
-      if (response.result?.tailored_resume) {
+      if (response.result?.rewrite_suggestions) {
         setActiveTab("diff");
       }
     }
@@ -76,12 +76,11 @@ export default function TailorPage() {
   }, [resumeContent, resumeFormat, jdText, rewriteMode, enableSemantic]);
 
   const canAnalyze = resumeContent && jdText && !loading;
-  const hasDiff =
-    result?.result?.tailored_resume && result?.result?.original_resume;
+  const hasSuggestions = !!result?.result?.rewrite_suggestions;
 
   const tabs: { key: Tab; label: string; show: boolean }[] = [
     { key: "score", label: "Score", show: true },
-    { key: "diff", label: "Diff", show: !!hasDiff },
+    { key: "diff", label: "Suggestions", show: hasSuggestions },
     { key: "keywords", label: "Keywords", show: true },
   ];
 
@@ -158,10 +157,9 @@ export default function TailorPage() {
                   packName={result.result.pack_name}
                 />
               )}
-              {activeTab === "diff" && hasDiff && (
-                <ResumeDiff
-                  original={result.result.original_resume!}
-                  rewritten={result.result.tailored_resume!}
+              {activeTab === "diff" && hasSuggestions && (
+                <RewriteChecklist
+                  suggestions={result.result.rewrite_suggestions!}
                 />
               )}
               {activeTab === "keywords" && (
