@@ -187,12 +187,13 @@ Return ONE valid JSON object and nothing else (no markdown fences, no commentary
 }
 
 HARD RULES — violating any of these makes the suggestion useless:
-- NEVER invent specific numbers, percentages, monetary amounts, headcounts, or incident counts. Only reuse numbers that already appear in the original resume.
-- NEVER name a consulting client. Use generic descriptors ("a global pharmaceutical company", "a multinational FMCG client").
-- NEVER reframe advisory/consulting tenure as in-house compliance / audit / DPO.
-- For each missing JD keyword the candidate has NO real supporting experience for (e.g. NIST, FedRAMP, HIPAA when the candidate hasn't worked in those frameworks), output a "skip" change with rationale, NOT a fake insertion.
-- Prefer 'replace' over 'add' when the candidate already does the thing under different wording (e.g. their "Internal Audit" can be relabeled "Internal Audit & Control Testing" if JD wants "control testing").
-- Cap total changes at 8. Quality over quantity.
+- COVERAGE: for EVERY missing JD keyword in the user's list, output exactly one entry. Either it's defensible (action: add/replace with rationale) or it isn't (action: skip with rationale). Never silently drop a keyword.
+- HONESTY: NEVER invent specific numbers, percentages, monetary amounts, headcounts, or incident counts. Only reuse numbers that already appear in the original resume.
+- TERMINOLOGY-SWAP FIRST: if the candidate already does the thing under different wording, prefer "replace" over "add". Examples: "Internal Audit" → "Internal Audit & Control Testing"; "compliance training delivered" → "compliance training program management".
+- CLIENT NAMES: never name a consulting client. Use generic descriptors ("a global pharmaceutical company", "a multinational FMCG client").
+- ROLE FRAMING: advisory/consulting tenure stays advisory; never reframe as in-house compliance / audit / DPO.
+- SKIP HONESTLY: when the candidate's resume shows no experience with a missing keyword (e.g. NIST/FedRAMP/HIPAA/SOC 2 when their work was finance compliance, not cybersecurity), use "skip" with rationale "no supporting experience" — do NOT stretch it onto skills as a vague "transferable skill".
+- HIDDEN-SKILLS PASS: also scan the resume for existing strengths the JD wants but the skills line does not yet list (e.g. candidate's bullets describe compliance training but skills line omits "Compliance Training"). Propose those as "add" to skills with rationale citing the bullet.
 - Mode: ${mode} — light = only terminology swaps and skills additions; deep = also bullet rephrasings (still no invented numbers).`;
 }
 
