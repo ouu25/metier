@@ -121,14 +121,30 @@ export class OpenAIProvider implements NamedAIProvider {
       body.response_format = { type: "json_object" };
     }
 
-    const response = await fetch(this.baseUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify(body),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 50_000);
+
+    let response: Response;
+    try {
+      response = await fetch(this.baseUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.apiKey}`,
+        },
+        body: JSON.stringify(body),
+        signal: controller.signal,
+      });
+    } catch (err) {
+      if ((err as { name?: string }).name === "AbortError") {
+        throw new Error(
+          "AI provider timed out after 50s. Try a shorter resume/JD or switch to a faster model."
+        );
+      }
+      throw err;
+    } finally {
+      clearTimeout(timeout);
+    }
 
     if (!response.ok) {
       const error = await response.text();
@@ -206,13 +222,20 @@ function buildRewritePrompt(
 - Missing keywords to inject: ${missing.join(", ")}`;
   }
 
+  // Strip raw_text and truncate JD to keep the prompt small. Including the
+  // full resume + JD blew up DeepSeek's response time past 60s and tripped
+  // the function timeout. Structured fields are enough for rewrite, and the
+  // first ~2000 chars of a JD almost always cover responsibilities + reqs.
+  const trimmedBase = { ...base, raw_text: undefined };
+  const trimmedJd = jd.raw_text.slice(0, 2000);
+
   return `${modeInstructions}
 
 Current resume:
-${JSON.stringify(base, null, 2)}
+${JSON.stringify(trimmedBase, null, 2)}
 
 Job description:
-${jd.raw_text}`;
+${trimmedJd}`;
 }
 
 function buildSemanticPrompt(

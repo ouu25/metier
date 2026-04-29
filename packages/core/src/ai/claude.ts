@@ -112,20 +112,36 @@ export class ClaudeProvider implements NamedAIProvider {
     const systemMsg = messages.find((m) => m.role === "system");
     const userMsgs = messages.filter((m) => m.role !== "system");
 
-    const response = await fetch(this.baseUrl, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": this.apiKey,
-        "anthropic-version": "2023-06-01",
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: opts.maxTokens ?? 4096,
-        system: systemMsg?.content ?? "",
-        messages: userMsgs.map((m) => ({ role: m.role, content: m.content })),
-      }),
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 50_000);
+
+    let response: Response;
+    try {
+      response = await fetch(this.baseUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-api-key": this.apiKey,
+          "anthropic-version": "2023-06-01",
+        },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: opts.maxTokens ?? 4096,
+          system: systemMsg?.content ?? "",
+          messages: userMsgs.map((m) => ({ role: m.role, content: m.content })),
+        }),
+        signal: controller.signal,
+      });
+    } catch (err) {
+      if ((err as { name?: string }).name === "AbortError") {
+        throw new Error(
+          "AI provider timed out after 50s. Try a shorter resume/JD or switch to a faster model."
+        );
+      }
+      throw err;
+    } finally {
+      clearTimeout(timeout);
+    }
 
     if (!response.ok) {
       const error = await response.text();
@@ -203,13 +219,16 @@ function buildRewritePrompt(
 - Missing keywords to inject: ${missing.join(", ")}`;
   }
 
+  const trimmedBase = { ...base, raw_text: undefined };
+  const trimmedJd = jd.raw_text.slice(0, 2000);
+
   return `${modeInstructions}
 
 Current resume:
-${JSON.stringify(base, null, 2)}
+${JSON.stringify(trimmedBase, null, 2)}
 
 Job description:
-${jd.raw_text}`;
+${trimmedJd}`;
 }
 
 function buildSemanticPrompt(
